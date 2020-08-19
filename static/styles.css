@@ -1,0 +1,73 @@
+body {
+  background-color:#f5efef;
+}
+
+h1 {
+  color:#AC3B61;
+  align-content: center;
+}
+
+h2 {
+  color:#17a2b8;
+}
+
+p {
+  color: rgb(75, 94, 94);
+}
+
+.task-list ul {
+  padding: 0px;
+}
+
+.task-list  ul li {
+  list-style-type: none;
+}
+
+.task-list a {
+  text-decoration: none;
+  color:#AC3B61;
+  padding-right: 10px;
+}
+
+.task-list input {
+  max-width: 250px;
+}
+
+.task-list-results ul {
+  padding: 0px;
+}
+
+.task-list-results ul li {
+  list-style-type: none;
+}
+
+.task-list-results a {
+  text-decoration: none;
+  color:#AC3B61;
+  padding-right: 10px;
+}
+
+.habit-list ul li {
+  list-style-type: none;
+}
+
+.habit-list ul {
+  padding: 0px;
+}
+
+.habit-list input {
+  max-width: 350px;
+}
+
+.habit-list a {
+  text-decoration: none;
+  color:#AC3B61;
+  padding-right: 10px;
+}
+
+#update {
+  text-decoration: none;
+  color:#17a2b8;
+  padding-right: 10px;
+}
+   
