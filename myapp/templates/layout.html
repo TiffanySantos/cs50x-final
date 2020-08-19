@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+  <head>
+     <!-- Required meta tags -->
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+ 
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    
+    <div class="container mt-3">
+      <div class="page-header text-center">
+        <h1>Stay ON track</h1>      
+        <em>Juggling daily-life is hard, let these handy tools help you!</em>
+      </div>   
+    </div>
+
+    {% if get_flashed_messages() %}
+    <header>
+      <div class="alert alert-danger border text-center" role="alert">
+          {{ get_flashed_messages() | join(" ") }}
+      </div>
+    </header>
+    {% endif %}
+
+    <main class="container p-5">
+      {% block main %}{% endblock %}
+    </main>
+  
+  </body>
+</html>
