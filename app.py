@@ -12,17 +12,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # supresses sqlalchemy warn
 db = SQLAlchemy(app)
 app.register_error_handler(404, page_not_found)
 app.secret_key = 'necessary-for-sessions-to-work'
-  
 
-
-class Task(db.Model):
-  id = db.Column(db.Integer, primary_key=True)
-  content = db.Column(db.String(200), nullable=False)
-  completed = db.Column(db.Boolean, default=False, nullable=False)
-  date_created = db.Column(db.DateTime, default=datetime.utcnow)
-  # returns a string every time we create a new element, the task and the id of that task
-  def __repr__(self):
-    return '<Task %r>' % self.id
+# workaround to circular imports
+from app import models
 
 
 @app.route('/', methods=["GET", "POST"])
