@@ -1,20 +1,7 @@
 from flask import Flask, request, flash, render_template, redirect, url_for, session
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-
-
-def page_not_found(e):
-  return render_template('404.html'), 404
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db' # call your db whatever you want after sqlite:///
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # supresses sqlalchemy warnings
-db = SQLAlchemy(app)
-app.register_error_handler(404, page_not_found)
-app.secret_key = 'necessary-for-sessions-to-work'
-
-# workaround to circular imports
-from app import models
+from myapp.models import Task
+from myapp import app, db
 
 
 @app.route('/', methods=["GET", "POST"])
@@ -65,10 +52,3 @@ def delete_task(id):
   db.session.commit()
   flash("Task sucessfully deleted.")
   return redirect('/archive/')
-
-
-  if __name__ == '__main__':
-    app.run(debug=True)
-
-# to run the app in terminal type:
-# $ python3 -m flask run
