@@ -1,7 +1,26 @@
 from flask import Flask, request, flash, render_template, redirect, url_for, session
 from datetime import datetime
-from myapp.models import Task
 from myapp import app, db
+from myapp.models import Task
+from myapp.forms import RegistrationForm, LoginForm
+
+@app.route('/register', methods=["GET", "POST"])
+def register():
+  form = RegistrationForm()
+  if form.validate_on_submit():
+    flash(f'Account created for {form.username.data}!')
+    return redirect(url_for('/')) 
+  return render_template('register.html', title='Register', form=form)
+ 
+
+@app.route('/login', methods=["GET", "POST"])
+def login():
+  form = LoginForm()
+  if form.validate_on_submit():
+    flash(f'Welcome back {form.username.data}!')
+    return redirect(url_for('/'))
+  flash('Login unsuccessful, please check your details')
+  return render_template('login.html', title='Login', form=form)
 
 
 @app.route('/', methods=["GET", "POST"])
