@@ -12,14 +12,38 @@
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
-    
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-bottom">
+      <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+          </li>
+          {% if current_user.is_anonymous %}
+           <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+          </li> 
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('account') }}">Account</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('tasks') }}">Tasks</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+          </li> 
+          {% endif %}  
+      </ul>
+    </nav>
+
     <div class="container mt-3">
       <div class="page-header text-center">
-        <h1>Stay ON track</h1>      
-        <em>Juggling daily-life is hard, let these handy tools help you!</em>
+        <h1>stay ON track</h1>      
+        <em>Juggling daily-life is hard, let our handy tools help you!</em>
       </div>   
     </div>
-
     {% if get_flashed_messages() %}
     <header>
       <div class="alert alert-danger border text-center" role="alert">

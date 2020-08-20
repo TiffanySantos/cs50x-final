@@ -1,0 +1,19 @@
+{% extends ('layout.html') %}
+{% block title %} Tasks {% endblock %}
+
+{% block main %}
+
+<div class="task-list">
+  <h2> Task list</h2>
+    <form action="tasks" method="post"> 
+        <ul>
+          {% for task in tasks %} 
+          <li><b><a href="/archive_task/{{task.id}}">√ </b></a>{{ task.content }}</li> 
+          {% endfor %}
+        </ul>
+        <input autofocus class="form-control" name="task_content" id="task_submit" placeholder="Enter to add task" type="text" type="submit" autocomplete="off">
+        <p class="small text-muted pt-2" >√ to mark as completed</p>
+    </form>
+</div>
+
+{% endblock %}
