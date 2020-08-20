@@ -60,7 +60,7 @@ def tasks():
       flash("Unable to add task without content.")
       return redirect(url_for('tasks'))
 
-    new_task = Task(content=task_content)
+    new_task = Task(content=task_content, author=current_user)
     db.session.add(new_task)
     db.session.commit()
     flash("New task added!")
