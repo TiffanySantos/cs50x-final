@@ -14,7 +14,7 @@ def register():
     user = User(username=form.username.data, password=hashed_password)
     db.session.add(user)
     db.session.commit()
-    flash('Account created, please log in!')
+    flash('Account created!')
     return redirect(url_for('login')) 
   return render_template('register.html', title='Register', form=form)
 
@@ -29,8 +29,11 @@ def login():
       login_user(user)
       flash(f'Welcome back {form.username.data}!')
       return redirect(url_for('account')) 
+    elif not user:
+      flash("Please register for an account if you don't already have one.")
+      return redirect(url_for('register')) 
     else:
-      flash('Invalid username or password.')
+      flash("Invalid username or password.")
       return redirect(url_for('login')) 
   return render_template('login.html', title='Login', form=form)
 
@@ -67,7 +70,8 @@ def tasks():
     return redirect(url_for('tasks'))
 
   else:
-    tasks = Task.query.filter(Task.completed==False).all()
+    author = User.get_id(current_user)
+    tasks = Task.query.filter(Task.completed==False).filter(Task.user_id==author).all()
     return render_template('tasks.html', tasks=tasks)
 
 @app.route('/archive_task/<int:id>')

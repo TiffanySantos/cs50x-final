@@ -13,8 +13,10 @@ class User(UserMixin, db.Model):
   username = db.Column(db.String(50), unique=True, nullable=False)
   password = db.Column(db.String(60), nullable=False)
   tasks = db.relationship('Task', backref='author', lazy='dynamic')
+  
   def get_id(self):  
     return str(self.id)  
+
   def __repr__(self):
     return '<User {}>'.format(self.username)  
 
