@@ -37,7 +37,7 @@ def login():
       return redirect(url_for('login')) 
   return render_template('login.html', title='Login', form=form)
 
-@app.route('/index')
+@app.route('/')
 def index():
   return render_template('index.html')
 
@@ -152,8 +152,46 @@ def delete_habit(id):
   return redirect(url_for('habits'))
 
 
-@app.route('/get_checked_habits/', methods=["GET", "POST"])
-def get_checked_habits():  
-   if request.method == "POST":
-      days = request.form().getlist('day')
-      return redirect(url_for('habits', days=days))
+@app.route('/view_streaks')
+@login_required
+def view_streaks():
+  user = User.get_id(current_user)
+  habits = Habit.query.filter(Habit.deleted==False).filter(Habit.user_id==user).all()
+  return render_template('view_streaks.html',habits=habits)
+
+@app.route('/update_habits', methods=["GET", "POST"])
+@login_required
+def update_habits():
+  if request.method == "POST":
+    submitted = request.form.getlist("done") # returns a list of checked habit-content
+
+    # get list of user habits, check if habit-contents match submitted-contents
+    habits = get_current_user_habits_content_as_list()
+    matched = []
+    for habit in habits:  
+      if habit in submitted:
+        matched.append(habit)
+    
+    user = User.get_id(current_user)
+    my_habits = Habit.query.filter(Habit.user_id==user).all()
+    
+    # for each matching habit update the user current habit habit-streak +1 
+    for h in my_habits:
+      if h.content in matched:
+        update_streak = int(Habit.get_streak(h))
+        update_streak += 1
+        h.streak = update_streak
+        db.session.commit()
+    return render_template('view_streaks.html')
+
+  else:
+    habits= get_current_user_habits_content_as_list()
+    return render_template('update_habits.html', habits=habits)
+
+def get_current_user_habits_content_as_list():
+  user = User.get_id(current_user)
+  my_habits = Habit.query.filter(Habit.deleted==False).filter(Habit.user_id==user).all()
+  habits=[]
+  for habit in my_habits:
+    habits.append(Habit.get_content(habit))
+  return habits

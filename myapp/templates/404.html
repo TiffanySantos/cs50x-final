@@ -1,5 +1,9 @@
 {% extends "layout.html" %}
 {% block title %}Page Not Found{% endblock %}
 {% block main %}
+    {% if current_user.is_anonymous %}
     <a class="btn btn-outline-info" role="button" href="{{ url_for('index') }}">Take me back!</a>
+    {% else %}
+    <a class="btn btn-outline-info" role="button" href="{{ url_for('account') }}">Take me back!</a>
+    {% endif %}
 {% endblock %}

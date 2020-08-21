@@ -40,21 +40,17 @@ class Habit(db.Model):
   content = db.Column(db.String(100), nullable=False)
   date_created = db.Column(db.DateTime, default=datetime.utcnow)
   deleted = db.Column(db.Boolean, default=False, nullable=False)
+  streak = db.Column(db.Integer, default=0, nullable=False)
   
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-  days_tracked = db.relationship('Habit_day_tracker', backref='habit', lazy='dynamic')
-  
-  def get_id(self):  
-    return str(self.id) 
+ 
+  def get_content(self):  
+    return str(self.content)
+
+  def get_streak(self):  
+    return str(self.streak)
 
   def __repr__(self):
     return '<Habit %r>' % self.id
 
-class Habit_day_tracker(db.Model):
-  id = db.Column(db.Integer, primary_key=True)
-  date_created = db.Column(db.DateTime, default=datetime.utcnow)
-  done = db.Column(db.Boolean, default=False, nullable=False)
-  habit_id = db.Column(db.Integer, db.ForeignKey('habit.id'))
 
-  def __repr__(self):
-    return '<Habit_day_tracker %r>' % self.id

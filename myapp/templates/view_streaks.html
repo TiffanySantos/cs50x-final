@@ -1,0 +1,20 @@
+{% extends ('layout.html') %}
+{% block title %} Streaks {% endblock %}
+
+{% block main %}
+
+<div class="habit-list">
+  <h2>Keep your streaks going</h2>
+  <br>
+        <ul>
+          {% for habit in habits %} 
+              {% if habit.streak == 1 %}
+            <li>Since {{  habit.date_created.date() }} you have <b>{{ habit.content }} {{ habit.streak }} time</b> in total.</li> 
+              {% else %}
+            <li>Since {{  habit.date_created.date() }} you have <b>{{ habit.content }} {{ habit.streak }} times</b> in total.</li> 
+              {% endif %}
+          {% endfor %}
+        </ul>
+        <br>
+</div>
+{% endblock %}
