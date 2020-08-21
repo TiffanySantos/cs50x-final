@@ -1,7 +1,7 @@
 from flask import Flask, request, flash, render_template, redirect, url_for, session
 from datetime import datetime
 from myapp import app, db, bcrypt, login_manager
-from myapp.models import User, Task
+from myapp.models import User, Task, Habit
 from myapp.forms import RegistrationForm, LoginForm
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -58,21 +58,30 @@ def account():
 def tasks():
   if request.method == "POST":
     task_content = request.form['task_content']
+
+  else:
+    user = User.get_id(current_user)
+    tasks = Task.query.filter(Task.completed==False).filter(Task.user_id==user).all()
+    return render_template('tasks.html', tasks=tasks)
+
+@app.route('/create_tasks', methods=["GET", "POST"])
+@login_required
+def create_tasks():
+  if request.method == "POST":
+    task_content = request.form['task_content']
     
     if not task_content:
       flash("Unable to add task without content.")
       return redirect(url_for('tasks'))
 
-    new_task = Task(content=task_content, author=current_user)
+    new_task = Task(content=task_content, user=current_user)
     db.session.add(new_task)
     db.session.commit()
     flash("New task added!")
-    return redirect(url_for('tasks'))
+    return redirect(url_for('create_tasks'))
 
   else:
-    author = User.get_id(current_user)
-    tasks = Task.query.filter(Task.completed==False).filter(Task.user_id==author).all()
-    return render_template('tasks.html', tasks=tasks)
+    return render_template('create_tasks.html')
 
 @app.route('/archive_task/<int:id>')
 @login_required
@@ -106,3 +115,45 @@ def delete_task(id):
   db.session.commit()
   flash("Task sucessfully deleted.")
   return redirect(url_for('show_archived'))
+
+@app.route('/habits', methods=["GET", "POST"])
+@login_required
+def habits():
+  if request.method == "POST":
+    habit_content = request.form['habit_content']
+    
+    if not habit_content:
+      flash("Unable to add habit without content.")
+      return redirect(url_for('habits'))
+
+    new_habit = Habit(content=habit_content, user=current_user)
+    db.session.add(new_habit)
+    db.session.commit()
+    flash("New habit added!")
+    return redirect(url_for('habits'))
+
+  else:
+    user = User.get_id(current_user)
+    habits = Habit.query.filter(Habit.deleted==False).filter(Habit.user_id==user).all()
+    return render_template('habits.html', habits=habits)
+
+@app.route('/delete_habit/<int:id>')
+@login_required
+def delete_habit(id):
+  to_delete = Habit.query.get(id)
+  
+  if not to_delete:
+    flash("Unable to delete task.")
+    return render_template('404.html')
+  
+  db.session.delete(to_delete)
+  db.session.commit()
+  flash("Habit sucessfully deleted.")
+  return redirect(url_for('habits'))
+
+
+@app.route('/get_checked_habits/', methods=["GET", "POST"])
+def get_checked_habits():  
+   if request.method == "POST":
+      days = request.form().getlist('day')
+      return redirect(url_for('habits', days=days))

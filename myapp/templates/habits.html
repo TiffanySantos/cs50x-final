@@ -1,0 +1,21 @@
+{% extends ('layout.html') %}
+{% block title %} Habits {% endblock %}
+
+{% block main %}
+
+<div class="habit-list">
+  <h2> Habits being tracked</h2>
+  <br>
+    <form action="habits" method="post"> 
+        <ul>
+          {% for habit in habits %} 
+          <li><b><a href="/delete_habit/{{habit.id}}">X </b></a></a>{{ habit.content }}</li> 
+          {% endfor %}
+        </ul>
+        <br>
+        <input autofocus class="form-control" name="habit_content" id="task_submit" placeholder="Enter to add habit" type="text" type="submit" autocomplete="off">
+        <p class="small text-muted pt-2">X to quit tracking habit</p>
+    </form>
+</div>
+
+{% endblock %}

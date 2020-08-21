@@ -52,4 +52,18 @@ p {
   color:#AC3B61;
 }
 
+.habit-list ul {
+  padding: 0px;
+}
+
+.habit-list  ul li {
+  list-style-type: none;
+}
+
+.habit-list a {
+  text-decoration: none;
+  color:#AC3B61;
+  padding-right: 10px;
+}
+
    

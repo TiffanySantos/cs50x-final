@@ -1,0 +1,16 @@
+{% extends ('layout.html') %}
+{% block title %} Tasks {% endblock %}
+
+{% block main %}
+
+<div class="task-list">
+  <h2> Task list</h2>
+  <br>
+    <form action="create_tasks" method="post"> 
+        <input autofocus class="form-control" name="task_content" id="task_submit" placeholder="Enter to add task" type="text" type="submit" autocomplete="off">
+    </form>
+</div>
+<br>
+<a class="btn btn-outline-info" role="button" href="{{ url_for('tasks') }}">View tasks</a>
+
+{% endblock %}

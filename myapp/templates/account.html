@@ -1,7 +1,14 @@
 {% extends "layout.html" %}
 {% block title %}Index{% endblock %}
 {% block main %}
-    My account details TODO
+<h2>Tasks</h2> 
     <br>
+<a class="btn btn-outline-info" role="button" href="{{ url_for('create_tasks') }}">Create a task</a>
 <a class="btn btn-outline-info" role="button" href="{{ url_for('show_archived') }}">Show completed tasks</a>
+    <br>
+    <br>
+    <br>
+<h2>Habits</h2> 
+    <br>
+    <a class="btn btn-outline-info" role="button" href="{{ url_for('habits') }}">Add a habit</a>
 {% endblock %}
