@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Register{% endblock %}
 {% block main %}
+<div class="main-content">
     <div class='content-section'>
       <form method='POST' action='register'>
         {{ form.hidden_tag() }} <!--uses secret token to keep data safe-->
@@ -47,4 +48,5 @@
         Already have an account? <a class='ml-1' href="{{ url_for('login')}}">Sign in</a>
       </small>
     </div>
+  </div>
 {% endblock %}

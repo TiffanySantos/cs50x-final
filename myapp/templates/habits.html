@@ -3,19 +3,28 @@
 
 {% block main %}
 
-<div class="habit-list">
-  <h2> Habits being tracked</h2>
-  <br>
-    <form action="habits" method="post"> 
-        <ul>
-          {% for habit in habits %} 
-          <li><b><a href="/delete_habit/{{habit.id}}">X </b></a></a>{{ habit.content }}</li> 
-          {% endfor %}
-        </ul>
-        <br>
-        <input autofocus class="form-control" name="habit_content" id="task_submit" placeholder="Enter to add habit" type="text" type="submit" autocomplete="off">
+<div class="habits-app">
+    <div class="habit-list">
+      <h2> Habits being tracked</h2>
         <p class="small text-muted pt-2">X to quit tracking habit</p>
-    </form>
-</div>
+        <br>
+          <form action="habits" method="post"> 
+            <ul>
+              {% for habit in habits %} 
+              <li><b><a href="/delete_habit/{{habit.id}}">X </b></a></a>{{ habit.content }}</li> 
+              {% endfor %}
+            </ul>
+              <br>
+              <div class="d-inline-flex">
+                  <input autofocus class="form-control" name="habit_content" id="task_submit" placeholder="Enter to add habit" type="text" type="submit" autocomplete="off"> 
+              </div>  
+          </form>
+    </div> 
+    <br> 
+    <div class="btn-group-vertical">
+      <a class="btn btn-outline-info" role="button" href="{{ url_for('update_habits') }}">Update habits</a>
+      <a class="btn btn-outline-info" role="button" href="{{ url_for('view_streaks') }}">View habit streaks</a>
+    </div>
+</div> 
 
 {% endblock %}

@@ -185,7 +185,7 @@ def update_habits():
     return render_template('view_streaks.html')
 
   else:
-    habits= get_current_user_habits_content_as_list()
+    habits = get_current_user_habits_content_as_list()
     return render_template('update_habits.html', habits=habits)
 
 def get_current_user_habits_content_as_list():
