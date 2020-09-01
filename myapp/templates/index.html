@@ -1,5 +1,15 @@
 {% extends "layout.html" %}
 {% block title %}Index{% endblock %}
 {% block main %}
-    Landing page content TODO
+<div class="d-flex flex-row p-5 w-80">
+    <div class="postit">
+        <div class="post-it-note">
+            <p>Sitcky notes aren't exactly the best way to stay organised! </p>
+        </div>
+    </div>
+        <div class="better">
+        <p>A better way to keep track of your daily tasks and habits is with an app that enables you to create your own todo list and add your habits to your habit tracker. Try ours today!</p>
+        <a class="btn btn-outline-info" role="button" href="{{ url_for('register') }}">Create a free account</a>
+    </div>
+</div>           
 {% endblock %}

@@ -1,7 +1,28 @@
 {% extends "layout.html" %}
 {% block title %}Index{% endblock %}
 {% block main %}
-    My account details TODO
-    <br>
-<a class="btn btn-outline-info" role="button" href="{{ url_for('show_archived') }}">Show completed tasks</a>
+<div class="both-apps">
+    <div class="tasks-app">
+        <h2>Tasks</h2> 
+            <br>
+        <div class="d-flex flex-row">
+            <a class="btn btn-outline-info" role="button" href="{{ url_for('create_tasks') }}">Create a task</a>
+            <a class="btn btn-outline-info" role="button" href="{{ url_for('show_archived') }}">Show completed tasks</a>
+        </div>
+        <br>
+        <br>
+        </div>
+        <div class="habits-app">
+        <h2>Habits</h2> 
+            <br>
+        <div class="d-flex flex-row">
+            <a class="btn btn-outline-info" role="button" href="{{ url_for('habits') }}">Add a habit</a>
+            <a class="btn btn-outline-info" role="button" href="{{ url_for('update_habits') }}">Update habits</a>
+            <a class="btn btn-outline-info" role="button" href="{{ url_for('view_streaks') }}">View habit streaks</a>
+        </div>
+    </div>
+</div>
+
+
 {% endblock %}
+

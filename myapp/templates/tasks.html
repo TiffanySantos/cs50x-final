@@ -2,18 +2,27 @@
 {% block title %} Tasks {% endblock %}
 
 {% block main %}
-
-<div class="task-list">
-  <h2> Task list</h2>
-    <form action="tasks" method="post"> 
-        <ul>
-          {% for task in tasks %} 
-          <li><b><a href="/archive_task/{{task.id}}">√ </b></a>{{ task.content }}</li> 
-          {% endfor %}
-        </ul>
-        <input autofocus class="form-control" name="task_content" id="task_submit" placeholder="Enter to add task" type="text" type="submit" autocomplete="off">
-        <p class="small text-muted pt-2" >√ to mark as completed</p>
-    </form>
+<div class="justify-content-center">
+  <div class="task-list">
+    <h2> Task list</h2>
+    <p class="small text-muted pt-2" >√ to mark as completed</p>
+    <br>
+      <form action="tasks" method="post"> 
+          <ul>
+            {% for task in tasks %} 
+            <li><b><a href="/archive_task/{{task.id}}">√ </b></a>{{ task.content }}</li> 
+            {% endfor %}
+          </ul>
+      </form>
+  </div>
+    <br>
+    <div class="btn-group">
+      <div class="btn-group-vertical" role="group">
+        <a class="btn btn-outline-info" type="button" role="button" href="{{ url_for('create_tasks') }}">Create another task</a>
+        <a class="btn btn-outline-info" type="button" role="button" href="{{ url_for('show_archived') }}">Show completed tasks</a>
+      </div>
+  </div>
 </div>
+
 
 {% endblock %}

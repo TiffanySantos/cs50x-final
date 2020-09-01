@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}Update habits{% endblock %}
+{% block main %}
+<div class="habit-list">
+  <h2>Tick completed habits:</h2>
+  <br>
+    <form method='POST' action="{{ url_for('update_habits') }}">
+      <ul>
+      {% for habit in habits %}
+      <li>
+        <input type="checkbox" name="done" value="{{habit}}">
+        <label>{{habit}}</label>
+      </li>
+      {% endfor %}
+    </ul>
+  <input class="btn btn-outline-info" type="submit" value="Done">
+  </form>
+{% endblock %}

@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Login{% endblock %}
 {% block main %}
+<div class="main-content">
 <div class='content-section'>
   <form method='POST' action='login'>
     {{ form.hidden_tag() }} <!--uses secret token to keep data safe-->
@@ -8,10 +9,22 @@
       <legend class='border-bottom mb-4'>Sign in</legend>       
       <div class="form-group">
         {{ form.username.label(class='form-control-label')}}
+        {% if form.username.errors %}
+          <ul class="errors">
+            {% for error in form.username.errors %}
+              <li>{{ error }}</li>{% endfor %}
+          </ul>
+        {% endif %}
         {{ form.username(class='form-control form-control-lg')}}
       </div>
       <div class="form-group">
         {{ form.password.label(class='form-control-label')}}
+        {% if form.password.errors %}
+          <ul class="errors">
+            {% for error in form.password.errors %}
+              <li>{{ error }}</li>{% endfor %}
+          </ul>
+        {% endif %}
         {{ form.password(class='form-control form-control-lg')}}
       </div>
     </fieldset>
@@ -25,4 +38,6 @@
     Need an account? <a class='ml-1' href="{{ url_for('register')}}">Register</a>
   </small>
 </div>
+</div>
+
 {% endblock %}
