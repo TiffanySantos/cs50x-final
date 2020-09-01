@@ -1,4 +1,4 @@
-stayONtrack web-based application using Flask, Python3, HTML, CSS, Bootstrap, Jinja, Flask-SQLAlchemy
+**stayONtrack** web-based application using Flask, Python3, HTML, CSS, Bootstrap, Jinja, Flask-SQLAlchemy
 
 Replace post-its with two simple apps in just one place!
 Task list - simple todo list
